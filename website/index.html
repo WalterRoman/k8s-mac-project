@@ -1,0 +1,47 @@
+cat > website/index.html << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My K8s Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🚀 Running on Kubernetes</h1>
+    <p class="subtitle">Deployed with k3s inside Docker on Mac</p>
+  </header>
+  <main>
+    <section class="info-cards">
+      <div class="card">
+        <h2>🖥️ Server</h2>
+        <p>Ubuntu Container</p>
+        <p>Running on Mac</p>
+      </div>
+      <div class="card">
+        <h2>⚙️ Orchestration</h2>
+        <p>k3s Kubernetes</p>
+      </div>
+      <div class="card">
+        <h2>🐳 Container</h2>
+        <p>Docker + Nginx</p>
+      </div>
+      <div class="card">
+        <h2>🔄 CI/CD</h2>
+        <p>GitHub Actions</p>
+      </div>
+    </section>
+    <section class="status">
+      <h2>Live Status</h2>
+      <div id="status-box">
+        <p>⏳ Loading status...</p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>Built by Walter · Powered by Kubernetes · Deployed from GitHub</p>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

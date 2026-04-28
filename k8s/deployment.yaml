@@ -1,0 +1,76 @@
+cat > k8s/deployment.yaml << 'EOF'
+# ── DEPLOYMENT.YAML ──
+# Tells Kubernetes HOW to run your container
+
+apiVersion: apps/v1
+# apiVersion: which Kubernetes API handles this
+# apps/v1 = stable API for Deployments
+
+kind: Deployment
+# kind: what type of Kubernetes object this is
+
+metadata:
+  name: k8s-website
+  # name: unique name of this Deployment in Kubernetes
+  labels:
+    app: k8s-website
+    # labels: tags used to organize and find this resource
+
+spec:
+  # spec: the desired state — what we WANT Kubernetes to do
+
+  replicas: 1
+  # replicas: how many identical copies (pods) to run
+  # We use 1 since this is a local learning project
+
+  selector:
+    matchLabels:
+      app: k8s-website
+      # selector: how this Deployment finds its pods
+      # must match the labels in the template below
+
+  template:
+    # template: the blueprint for each pod
+
+    metadata:
+      labels:
+        app: k8s-website
+        # these labels must match selector.matchLabels above
+
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+        # imagePullSecrets: tells Kubernetes how to log into
+        # GitHub Container Registry to pull our private image
+
+      containers:
+        - name: k8s-website
+          # name: identifier for this container inside the pod
+
+          image: ghcr.io/walterroman/k8s-website:latest
+          # image: the Docker image to run
+          # ghcr.io = GitHub Container Registry
+          # walterroman = your GitHub username
+          # k8s-website = image name
+          # latest = always use the most recent version
+
+          imagePullPolicy: Always
+          # Always = always pull the latest image from registry
+          # ensures every deploy gets the newest version
+
+          ports:
+            - containerPort: 80
+            # containerPort: port Nginx listens on inside container
+            # matches EXPOSE 80 in our Dockerfile
+
+          resources:
+            requests:
+              memory: "64Mi"
+              # minimum RAM Kubernetes reserves for this container
+              cpu: "50m"
+              # minimum CPU (50 millicores = 0.05 of one CPU core)
+            limits:
+              memory: "128Mi"
+              # maximum RAM this container can use
+              cpu: "100m"
+              # maximum CPU (100 millicores = 0.1 of one CPU core)
