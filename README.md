@@ -7,6 +7,20 @@ This project demonstrates Docker, Kubernetes, and CI/CD pipelines using GitHub A
 
 ## Architecture
 
+Mac (write code)
+↓
+GitHub (stores code)
+↓
+GitHub Actions (CI/CD pipeline)
+→ Builds Docker image
+→ Pushes to GitHub Container Registry
+↓
+Kubernetes (Docker Desktop v1.35.1)
+→ Pulls image from ghcr.io
+→ Runs the website in a pod
+↓
+localhost:8080 (live website)
+
 ---
 
 ## Tech Stack
@@ -23,6 +37,20 @@ This project demonstrates Docker, Kubernetes, and CI/CD pipelines using GitHub A
 
 ## Project Structure
 
+k8s-mac-project/
+├── Dockerfile                  # Recipe to build the website image
+├── website/
+│   ├── index.html              # Main webpage
+│   ├── style.css               # Styling
+│   └── app.js                  # Live status JavaScript
+├── k8s/
+│   ├── deployment.yaml         # Tells Kubernetes how to run the container
+│   └── service.yaml            # Exposes the website to the network
+└── .github/
+└── workflows/
+└── deploy.yml          # CI/CD pipeline definition
+
+
 ---
 
 ## CI/CD Pipeline
@@ -35,7 +63,7 @@ Every time code is pushed to `main`:
 
 ---
 
-## How to Run Locally
+## 🚀 How to Run Locally
 
 ### Prerequisites
 - Docker Desktop with Kubernetes enabled
@@ -72,7 +100,7 @@ Open browser: `http://localhost:8080`
 
 ---
 
-## Key Concepts Demonstrated
+## 📚 Key Concepts Demonstrated
 
 - **Containerization** — packaging an app with all its dependencies
 - **Container Orchestration** — Kubernetes managing container lifecycle
@@ -82,36 +110,6 @@ Open browser: `http://localhost:8080`
 
 ---
 
-## 🔄 CI/CD Pipeline
-
-Every time code is pushed to `main`:
-
-1. **CI** — GitHub Actions builds a fresh Docker image
-2. **CI** — Pushes the image to GitHub Container Registry (`ghcr.io`)
-3. **CD** — Kubernetes pulls the latest image and redeploys
-
-## 🔄 CI/CD Pipeline
-
-### What is CI? (Continuous Integration)
-Every time I push code, GitHub automatically:
-1. Builds a fresh Docker image from the Dockerfile
-2. Pushes the image to GitHub Container Registry (`ghcr.io`)
-This ensures the image is always up to date with the latest code.
-
-### What is CD? (Continuous Deployment)
-After CI passes, the new image is deployed to Kubernetes:
-```bash
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/service.yaml
-kubectl port-forward service/k8s-mac-project-service 8080:80
-```
-
-### What is a Pipeline?
-The pipeline is the full automated workflow defined in `.github/workflows/deploy.yml`:
-```
-git push → GitHub Actions → Build Image → Push to ghcr.io → Deploy to Kubernetes
-```
-
-## Author
+## 👨‍💻 Author
 
 Built by **Walter Roman** as a DevOps portfolio project.
