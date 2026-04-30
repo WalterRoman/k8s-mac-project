@@ -8,10 +8,10 @@ kind: Service
 # kind: Service = exposes your pods to network traffic
 
 metadata:
-  name: k8s-website-service
+  name: k8s-mac-project-service
   # name: unique name of this Service in Kubernetes
   labels:
-    app: k8s-website
+    app: k8s-mac-project
 
 spec:
   type: NodePort
@@ -20,7 +20,7 @@ spec:
   # Other types: ClusterIP (internal only), LoadBalancer (cloud)
 
   selector:
-    app: k8s-website
+    app: k8s-mac-project
     # selector: finds pods with this label to send traffic to
     # must match the labels in deployment.yaml
 

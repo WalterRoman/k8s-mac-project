@@ -1,4 +1,3 @@
-cat > k8s/deployment.yaml << 'EOF'
 # ── DEPLOYMENT.YAML ──
 # Tells Kubernetes HOW to run your container
 
@@ -10,10 +9,10 @@ kind: Deployment
 # kind: what type of Kubernetes object this is
 
 metadata:
-  name: k8s-website
+  name: k8s-mac-project
   # name: unique name of this Deployment in Kubernetes
   labels:
-    app: k8s-website
+    app: k8s-mac-project
     # labels: tags used to organize and find this resource
 
 spec:
@@ -25,7 +24,7 @@ spec:
 
   selector:
     matchLabels:
-      app: k8s-website
+      app: k8s-mac-project
       # selector: how this Deployment finds its pods
       # must match the labels in the template below
 
@@ -34,7 +33,7 @@ spec:
 
     metadata:
       labels:
-        app: k8s-website
+        app: k8s-mac-project
         # these labels must match selector.matchLabels above
 
     spec:
@@ -44,14 +43,14 @@ spec:
         # GitHub Container Registry to pull our private image
 
       containers:
-        - name: k8s-website
+        - name: k8s-mac-project
           # name: identifier for this container inside the pod
 
-          image: ghcr.io/walterroman/k8s-website:latest
+          image: ghcr.io/walterroman/k8s-mac-project:latest
           # image: the Docker image to run
           # ghcr.io = GitHub Container Registry
           # walterroman = your GitHub username
-          # k8s-website = image name
+          # k8s-mac-project = image name
           # latest = always use the most recent version
 
           imagePullPolicy: Always
