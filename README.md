@@ -1,5 +1,7 @@
 # K8s Mac Project
 
+![Website Preview](assets/website-preview.png)
+
 A full DevOps portfolio project running entirely on a local MacBook.
 This project demonstrates Docker, Kubernetes, and CI/CD pipelines using GitHub Actions.
 
