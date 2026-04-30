@@ -80,6 +80,36 @@ Open browser: `http://localhost:8080`
 
 ---
 
+## 🔄 CI/CD Pipeline
+
+Every time code is pushed to `main`:
+
+1. **CI** — GitHub Actions builds a fresh Docker image
+2. **CI** — Pushes the image to GitHub Container Registry (`ghcr.io`)
+3. **CD** — Kubernetes pulls the latest image and redeploys
+
+## 🔄 CI/CD Pipeline
+
+### What is CI? (Continuous Integration)
+Every time I push code, GitHub automatically:
+1. Builds a fresh Docker image from the Dockerfile
+2. Pushes the image to GitHub Container Registry (`ghcr.io`)
+This ensures the image is always up to date with the latest code.
+
+### What is CD? (Continuous Deployment)
+After CI passes, the new image is deployed to Kubernetes:
+```bash
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+kubectl port-forward service/k8s-mac-project-service 8080:80
+```
+
+### What is a Pipeline?
+The pipeline is the full automated workflow defined in `.github/workflows/deploy.yml`:
+```
+git push → GitHub Actions → Build Image → Push to ghcr.io → Deploy to Kubernetes
+```
+
 ## Author
 
 Built by **Walter Roman** as a DevOps portfolio project.
